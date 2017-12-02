@@ -147,9 +147,72 @@ void modMov()
 }
 
 void findMov()
-{
+{   
+    char op;
+	char usernum[100],line[250];
+	char bn[250],cn[250],mn[250],sch[250],gn[250],hn[250],t[250],f[250];
+	struct book b;
+	printf("Enter your booking number:");
+	scanf("%s",usernum);
+	FILE *movieFILE;
+	movieFILE=fopen("movie.txt","r");
+	if (movieFILE==NULL)
+ 	{	
+	    printf("FILE not found.");
+    }
+	else
+	{	
+	 while (fscanf(movieFILE,"%s",bn) != EOF)
+	{
+	  if (strcmp(usernum,bn)==0)
+    {	  	
+	  	printf("Record found.\n\n|1|Booking number: %s", bn);
+	  	
+		fgets(line,250,movieFILE); //skipping to new line
+		
+		fgets(cn,250,movieFILE);
+		printf("\n\n|2|Your name: %s",cn);
+		  	
+		fgets(mn,250,movieFILE);
+	  	printf("\n|3|Movie name: %s",mn);
+	  	
+	    fgets(sch,250,movieFILE);
+	  	printf("\n|4|Schedule: %s", sch);
+	  	
+		fgets(gn,250,movieFILE);
+	  	printf("\n|5|Number of Guests: %s",gn);
+		  	
+	  	fgets(hn,250,movieFILE);
+		printf("\n|6|House Number: %s",hn);
+	  	
+		fgets(t,250,movieFILE);
+		printf("\n|7|Type: %s",t);
+	  	
+		fgets(f,250,movieFILE);
+		printf("\n|8|Total fee: %s",f);
+	}
 	
-}
+		do
+	{
+		printf("Add another record (y/n)?");
+		scanf("%s",&op);
+		switch(op)
+		{
+			case 'y':
+				printf("\n");
+				findMov();
+			case 'n':
+				printf("\n");
+				main();
+			default:
+				printf("Please select (y) or (n)!\n");
+		}
+	} while(op!='n');
+    }  
+    }
+		   	
+}	
+
 
 void delMov()
 {
